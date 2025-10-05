@@ -221,3 +221,34 @@ canvas{ display:block; width:100%; height:100%; }
   .figure-caption{ font-size:10px; }
 }
 
+/* ====== Smartphone only: KPIパネル＆スライダーの下側余白を増やす ====== */
+@media (max-width: 640px){
+  /* iPhoneのホームインジケータ/検索バーを考慮して安全に下余白を確保 */
+  :root{
+    /* 必要なら数値だけ調整してください（既定: 24px） */
+    --extra-bottom-pad: 64px;
+  }
+
+  /* KPIパネル全体の下側に余白（安全領域込み） */
+  .panel{
+    padding-bottom: calc(var(--extra-bottom-pad) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* サイドバー（スライダーを含む領域）の下側にも余白（安全領域込み） */
+  .sidebar{
+    padding-bottom: calc(var(--extra-bottom-pad) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* スライダーが最後に来るケースで、最下段のコントロール群だけ更に余裕を足す
+     （HTMLのクラス追加なしで効く最小限の指定） */
+  .sidebar .group:last-child{
+    margin-bottom: calc(var(--extra-bottom-pad) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* rangeスライダーのタップしやすさ＆誤タップ回避のための“当たり”を少しだけ増やす
+     見た目を変えない（高さは親のpadding/marginだけで確保） */
+  .sidebar input[type="range"]{
+    touch-action: pan-y;
+  }
+}
+
