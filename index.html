@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>NASA Open Data × CAE for CubeSat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 404回避用の空favicon -->
+  <link rel="icon" href="data:;base64,=">
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- three.js の import map（app.js より前に置く） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🛰️</div>
+      <h1 id="appTitle" class="title">NASA Open Data × CAE for CubeSat</h1>
+    </div>
+    <div class="controls">
+      <label class="sm" id="label-lang" for="lang">Lang</label>
+      <select id="lang" class="control sm">
+        <option value="EN">EN</option>
+        <option value="JP">JP</option>
+      </select>
+      <button id="toggleSidebar" class="ghost only-narrow" title="Controls">☰</button>
+      <button id="togglePanel" class="ghost only-narrow ml" title="Results">▣</button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div class="container">
+    <!-- Sidebar（操作） -->
+    <aside id="sidebar" class="sidebar">
+      <div class="group">
+        <label id="label-material" for="material">Material</label>
+        <select id="material"></select>
+      </div>
+      <div class="group">
+        <label id="label-thickness" for="thickness">Thickness (mm)</label>
+        <select id="thickness"></select>
+      </div>
+      <div class="group">
+        <label id="label-mode" for="mode">Mode</label>
+        <select id="mode">
+          <option value="Sunlit">Sunlit</option>
+          <option value="Eclipse">Eclipse</option>
+        </select>
+      </div>
+
+      <div class="env-card">
+        <div class="env-header">
+          <div id="envTitle">Environment</div>
+        </div>
+        <div class="env-grid">
+          <div id="lbl-solar"  class="e-key">Solar constant (W/m²)</div>   <div id="val-solar"  class="e-val">—</div>
+          <div id="lbl-albR"   class="e-key">Earth albedo ratio (–)</div>  <div id="val-albR"   class="e-val">—</div>
+          <div id="lbl-albF"   class="e-key">Albedo flux (W/m²)</div>       <div id="val-albF"   class="e-val">—</div>
+          <div id="lbl-earthIR"class="e-key">Earth IR flux (W/m²)</div>     <div id="val-earthIR"class="e-val">—</div>
+          <div id="lbl-sinkT"  class="e-key">Deep space sink T (K)</div>    <div id="val-sinkT"  class="e-val">—</div>
+        </div>
+      </div>
+
+      <div class="props-card">
+        <div class="props-header">
+          <div id="propsTitle">Material Properties</div>
+          <div id="propsName" class="props-name">—</div>
+        </div>
+        <div class="props-grid">
+          <div id="lbl-alpha"   class="p-key">Absorptivity α (-)</div>   <div id="val-alpha"   class="p-val">—</div>
+          <div id="lbl-epsilon" class="p-key">Emissivity ε (-)</div>     <div id="val-epsilon" class="p-val">—</div>
+          <div id="lbl-rho"     class="p-key">Density ρ (g/cm³)</div>    <div id="val-rho"     class="p-val">—</div>
+          <div id="lbl-E"       class="p-key">Young’s E (GPa)</div>      <div id="val-E"       class="p-val">—</div>
+          <div id="lbl-nu"      class="p-key">Poisson ν (–)</div>        <div id="val-nu"      class="p-val">—</div>
+          <div id="lbl-cte"     class="p-key">CTE α (×10⁻⁶/K)</div>      <div id="val-cte"     class="p-val">—</div>
+          <div id="lbl-T0"      class="p-key">Reference T₀ (°C)</div>    <div id="val-T0"      class="p-val">—</div>
+          <div id="lbl-k"       class="p-key">Thermal k (W/m·K)</div>    <div id="val-k"       class="p-val">—</div>
+          <div id="lbl-cp"      class="p-key">Specific cₚ (J/kg·K)</div> <div id="val-cp"      class="p-val">—</div>
+        </div>
+      </div>
+
+      <div class="figure-card">
+        <div class="figure-header">
+          <div id="figureTitle">Simulation Environment</div>
+        </div>
+        <img class="env-figure" src="assets/figures/Environment.png" alt="" onerror="this.style.display='none'">
+        <div id="figureCaption" class="figure-caption">
+          S: Solar flux, Salb: Albedo flux, qIR: Earth IR, Ts: Deep space sink temperature
+        </div>
+      </div>
+    </aside>
+
+    <!-- Viewer（中央） -->
+    <main class="viewer">
+      <div id="viewer" style="position:absolute; inset:0;"></div>
+      <!-- カラーマップ（右上オーバーレイ） -->
+      <img id="colormap" class="colormap" alt="Color map" style="display:none;">
+    </main>
+
+    <!-- KPIパネル（右） -->
+    <aside id="results" class="panel">
+      <div class="kpi"><div id="massTitle" class="kpi-title">Mass</div><div id="mass" class="kpi-value">—</div><div class="kpi-unit">g</div></div>
+      <div class="kpi"><div id="tmaxTitle" class="kpi-title">Tmax</div><div id="tmax" class="kpi-value">—</div><div class="kpi-unit">°C</div></div>
+      <div class="kpi"><div id="tminTitle" class="kpi-title">Tmin</div><div id="tmin" class="kpi-value">—</div><div class="kpi-unit">°C</div></div>
+      <div class="kpi"><div id="dtTitle" class="kpi-title">ΔT</div><div id="dt" class="kpi-value">—</div><div class="kpi-unit">°C</div></div>
+      <div class="kpi"><div id="dispTitle" class="kpi-title">Disp. U</div><div id="disp" class="kpi-value">—</div><div class="kpi-unit">mm</div></div>
+    </aside>
+  </div>
+
+  <!-- モバイル用オーバーレイ -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Loading（クラスは新スタイルに準拠、IDはJS互換） -->
+  <div id="loading" class="loading-screen">
+    <div class="loading-card">
+      <div class="loading-title">Now Loading…</div>
+      <div class="loading-sub" id="loading-detail">Initializing…</div>
+      <div class="spinner"></div>
+      <div class="progress-wrap"><div id="loading-bar" class="progress-bar"></div></div>
+      <div class="loading-text">
+        <span id="loading-count">0</span>/<span id="loading-total">0</span>
+        <span class="ml">|</span>
+        <span id="loading-percent">0</span>%
+      </div>
+    </div>
+  </div>
+
+  <!-- アプリ本体 -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
+

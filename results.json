@@ -1,0 +1,145 @@
+{
+  "_env": {
+    "solar_W_m2": 1361,
+    "albedo_ratio": 0.3,
+    "albedo_flux_W_m2": 408.3,
+    "earth_ir_W_m2": 241,
+    "sinkT_K": 3
+  },
+
+  "Al6061-T6": {
+    "_props": {
+      "nameEN": "Aluminum Alloy (Al6061-T6)",
+      "nameJP": "アルミニウム合金（Al6061-T6）",
+      "alpha": 0.45,
+      "epsilon": 0.82,
+      "rho_g_cm3": 2.7,
+      "E_GPa": 68.9,
+      "nu": 0.33,
+      "cte_1e6_perK": 23.6,
+      "T0_C": 0,
+      "k_W_mK": 167,
+      "cp_J_kgK": 896
+    },
+    "1": {
+      "Sunlit": { "mass": 27.0, "tmax": 48.71, "tmin": 29.61, "disp": 0.1486 },
+      "Eclipse": { "mass": 27.0, "tmax": -58.16, "tmin": -65.96, "disp": 0.2045 }
+    },
+    "2": {
+      "Sunlit": { "mass": 54.0, "tmax": 49.03, "tmin": 23.22, "disp": 0.1412 },
+      "Eclipse": { "mass": 54.0, "tmax": -57.97, "tmin": -68.87, "disp": 0.1412 }
+    },
+    "3": {
+      "Sunlit": { "mass": 81.0, "tmax": 49.32, "tmin": 18.71, "disp": 0.136 },
+      "Eclipse": { "mass": 81.0, "tmax": -57.93, "tmin": -71.05, "disp": 0.2124 }
+    }
+  },
+  "Ti-6Al-4V": {
+    "_props": {
+      "nameEN": "Titanium Alloy (Ti-6Al-4V)",
+      "nameJP": "チタン合金（Ti-6Al-4V）",
+      "alpha": 0.6,
+      "epsilon": 0.6,
+      "rho_g_cm3": 4.43,
+      "E_GPa": 110,
+      "nu": 0.34,
+      "cte_1e6_perK": 8.8,
+      "T0_C": 0,
+      "k_W_mK": 6.7,
+      "cp_J_kgK": 526
+    },
+    "1": {
+      "Sunlit": { "mass": 44.3, "tmax": 90.94, "tmin": 87.76, "disp": 0.1101 },
+      "Eclipse": { "mass": 44.3, "tmax": -59.19, "tmin": -59.69, "disp": 0.07547 }
+    },
+    "2": {
+      "Sunlit": { "mass": 88.6, "tmax": 89.42, "tmin": 85.79, "disp": 0.1079 },
+      "Eclipse": { "mass": 88.6, "tmax": -60.21, "tmin": -60.73, "disp": 0.07676 }
+    },
+    "3": {
+      "Sunlit": { "mass": 132.9, "tmax": 87.81, "tmin": 84.02, "disp": 0.1058 },
+      "Eclipse": { "mass": 132.9, "tmax": -61.21, "tmin": -61.74, "disp": 0.07802 }
+    }
+  },
+  "CFRP": {
+    "_props": {
+      "nameEN": "CFRP (black, quasi-isotropic)",
+      "nameJP": "CFRP（黒・準等方）",
+      "alpha": 0.9,
+      "epsilon": 0.95,
+      "rho_g_cm3": 1.6,
+      "E_GPa": 70,
+      "nu": 0.3,
+      "cte_1e6_perK": 1.0,
+      "T0_C": 0,
+      "k_W_mK": 5,
+      "cp_J_kgK": 800
+    },
+    "1": {
+      "Sunlit": { "mass": 16.0, "tmax": 102.1, "tmin": -9.034, "disp": 0.07874 },
+      "Eclipse": { "mass": 16.0, "tmax": -49.61, "tmin": -98.18, "disp": 0.04748 }
+    },
+    "2": {
+      "Sunlit": { "mass": 32.0, "tmax": 106.6, "tmin": -30.98, "disp": 0.05278 },
+      "Eclipse": { "mass": 32.0, "tmax": -44.1, "tmin": -111.4, "disp": 0.04073 }
+    },
+    "3": {
+      "Sunlit": { "mass": 48.0, "tmax": 108.0, "tmin": -44.53, "disp": 0.03977 },
+      "Eclipse": { "mass": 48.0, "tmax": -40.34, "tmin": -120.5, "disp": 0.03587 }
+    }
+  },
+  "Beryllium": {
+    "_props": {
+      "nameEN": "Beryllium",
+      "nameJP": "ベリリウム",
+      "alpha": 0.35,
+      "epsilon": 0.2,
+      "rho_g_cm3": 1.85,
+      "E_GPa": 287,
+      "nu": 0.07,
+      "cte_1e6_perK": 11.3,
+      "T0_C": 0,
+      "k_W_mK": 200,
+      "cp_J_kgK": 1825
+    },
+    "1": {
+      "Sunlit": { "mass": 18.5, "tmax": 138.9, "tmin": 138.9, "disp": 0.22 },
+      "Eclipse": { "mass": 18.5, "tmax": -59.72, "tmin": -59.73, "disp": 0.09472 }
+    },
+    "2": {
+      "Sunlit": { "mass": 37.0, "tmax": 136.9, "tmin": 136.9, "disp": 0.2168 },
+      "Eclipse": { "mass": 37.0, "tmax": -60.76, "tmin": -60.76, "disp": 0.09908 }
+    },
+    "3": {
+      "Sunlit": { "mass": 55.5, "tmax": 135.0, "tmin": 134.9, "disp": 0.2138 },
+      "Eclipse": { "mass": 55.5, "tmax": -61.77, "tmin": -61.77, "disp": 0.1007 }
+    }
+  },
+  "PEEK": {
+    "_props": {
+      "nameEN": "PEEK",
+      "nameJP": "ポリエーテルエーテルケトン（PEEK）",
+      "alpha": 0.8,
+      "epsilon": 0.9,
+      "rho_g_cm3": 1.3,
+      "E_GPa": 3.8,
+      "nu": 0.38,
+      "cte_1e6_perK": 47,
+      "T0_C": 0,
+      "k_W_mK": 0.25,
+      "cp_J_kgK": 1300
+    },
+    "1": {
+      "Sunlit": { "mass": 13.0, "tmax": 83.04, "tmin": 64.65, "disp": 0.521 },
+      "Eclipse": { "mass": 13.0, "tmax": -58.23, "tmin": -64.91, "disp": 0.4068 }
+    },
+    "2": {
+      "Sunlit": { "mass": 26.0, "tmax": 83.54, "tmin": 54.45, "disp": 0.5062 },
+      "Eclipse": { "mass": 26.0, "tmax": -58.19, "tmin": -67.44, "disp": 0.4149 }
+    },
+    "3": {
+      "Sunlit": { "mass": 39.0, "tmax": 84.01, "tmin": 49.35, "disp": 0.4931 },
+      "Eclipse": { "mass": 39.0, "tmax": -58.34, "tmin": -69.34, "disp": 0.4222 }
+    }
+  }
+}
